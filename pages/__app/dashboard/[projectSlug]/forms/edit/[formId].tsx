@@ -1,9 +1,8 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
 
 import FormEdit from '@/components/Dashboard/FormEdit'
+import FormPreview from '@/components/Dashboard/FormPreview'
 import { useFormById } from '@/hooks/query/form'
 
 interface PageProps {
@@ -31,8 +30,8 @@ const FormEditPage: NextPage<PageProps> = ({ formId, projectSlug }) => {
       </section>
 
       <section id="preview" className="h-screen w-full flex-grow bg-gray-200">
-        <div className="flex h-full flex-col items-center overflow-y-scroll p-8 pb-12 pt-8">
-          {reviewForm && JSON?.stringify(reviewForm, null, 2)}
+        <div className="flex h-full flex-col items-center overflow-x-hidden overflow-y-scroll pt-8 lg:pb-2">
+          <FormPreview />
         </div>
       </section>
     </div>

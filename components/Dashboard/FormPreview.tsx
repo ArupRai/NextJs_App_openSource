@@ -1,30 +1,33 @@
 import { Laptop, Smartphone } from 'lucide-react'
 import { useState } from 'react'
+import { DeviceFrameset } from 'react-device-frameset'
+import 'react-device-frameset/styles/marvel-devices.min.css'
 
 import { cn } from '@/lib/utils'
-import ReviewForm from './ReviewForm'
+
+type DeviceName = 'iPhone X' | 'MacBook Pro'
 
 const FormPreview: React.FC = () => {
-  const [isMobile, setIsMobile] = useState(false)
+  const [device, setDevice] = useState<DeviceName>('iPhone X')
 
   return (
-    <div className="relative flex h-full w-full flex-col items-center">
-      <div className="mb-4 flex justify-center rounded-lg bg-gray-300 p-1">
+    <div className="relative flex flex-col items-center overflow-y-hidden">
+      <div className="z-20 mb-5 flex w-fit items-center gap-1 rounded-md bg-white p-0.5">
         <button
           className={cn(
             'offset_ring rounded-md p-1.5 transition-all',
-            isMobile && 'bg-gray-100'
+            device === 'iPhone X' && 'bg-gray-200'
           )}
-          onClick={() => setIsMobile(true)}
+          onClick={() => setDevice('iPhone X')}
         >
           <Smartphone />
         </button>
         <button
           className={cn(
             'offset_ring rounded-md p-1.5 transition-all',
-            !isMobile && 'bg-gray-100'
+            device === 'MacBook Pro' && 'bg-gray-200'
           )}
-          onClick={() => setIsMobile(false)}
+          onClick={() => setDevice('MacBook Pro')}
         >
           <Laptop />
         </button>
@@ -32,13 +35,14 @@ const FormPreview: React.FC = () => {
 
       <div
         className={cn(
-          'relative flex h-[90%] w-full flex-none flex-col overflow-hidden rounded-md bg-gray-50 shadow-xl ring-4 ring-gray-800 duration-300',
-          {
-            'h-[628px] w-[330px] rounded-3xl': isMobile,
-          }
+          'z-10 -mt-[130px]',
+          device === 'MacBook Pro' && '-mt-[100px]'
         )}
       >
-        <ReviewForm />
+        {/* @ts-ignore */}
+        <DeviceFrameset device={device} zoom="70%">
+          <div>Hello world</div>
+        </DeviceFrameset>
       </div>
     </div>
   )

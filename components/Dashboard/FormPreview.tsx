@@ -4,13 +4,15 @@ import { useState } from 'react'
 import { Form } from '@/gql/graphql'
 import { cn } from '@/lib/utils'
 import ReviewForm from './ReviewForm'
+import { FormStepId } from '@/types'
 
 interface FormPreviewProps {
   reviewForm: Form
+  currentStepId: FormStepId
 }
 
 const FormPreview: React.FC<FormPreviewProps> = (props) => {
-  const { reviewForm } = props
+  const { reviewForm, currentStepId } = props
   const [isMobile, setIsMobile] = useState(false)
 
   return (
@@ -48,7 +50,7 @@ const FormPreview: React.FC<FormPreviewProps> = (props) => {
           }
         )}
       >
-        <ReviewForm formData={reviewForm} currentStep={0} />
+        <ReviewForm formData={reviewForm} currentStepId={currentStepId} />
       </div>
     </div>
   )
